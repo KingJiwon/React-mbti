@@ -1,25 +1,18 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import styled from 'styled-components';
+import { Route, Routes } from 'react-router-dom';
 import GlobalStyle from './Components/GlobalStyle';
-import Start from './pages/Start';
-import Mbti from './pages/Mbti';
-
-const Main = styled.main`
-  box-sizing: border-box;
-  width: 100%;
-  max-width: 500px;
-  padding: 0 35px;
-  margin: auto;
-  text-align: center;
-`;
+import Main from './Components/Main';
+import Login from './pages/Login';
 
 function App() {
-  const page = useSelector((state) => state.mbti.page);
+  const isLogin = useSelector((state) => state.user.isLogin);
   return (
     <React.Fragment>
       <GlobalStyle />
-      <Main>{page === 0 ? <Start /> : <Mbti />}</Main>
+      <Routes>
+        <Route path="/" element={isLogin ? <Main /> : <Login />} />
+      </Routes>
     </React.Fragment>
   );
 }
